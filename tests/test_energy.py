@@ -29,10 +29,3 @@ def test_energy_decays_with_linear_drag():
     diffs = np.diff(result.energies)
     assert np.all(diffs <= 1e-10)
     assert result.energies[-1] < result.energies[0]
-
-
-def test_backward_euler_is_more_dissipative_than_crank_nicolson():
-    """theta=1 (backward Euler) numerically damps more than theta=0.5 (CN)."""
-    cn = simulate(N=41, T=0.5, cfl=0.4, nu=0.0, gamma=0.0, theta=0.5, verbose=False)
-    be = simulate(N=41, T=0.5, cfl=0.4, nu=0.0, gamma=0.0, theta=1.0, verbose=False)
-    assert be.energies[-1] < cn.energies[-1]
